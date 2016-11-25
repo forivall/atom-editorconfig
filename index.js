@@ -129,37 +129,24 @@ function initializeTextBuffer(buffer) {
 					return;
 				}
 
-				const configOptions = {scope: editor.getRootScopeDescriptor()};
 				const settings = this.settings;
 
 				if (editor && editor.getBuffer() === buffer) {
-					if (settings.indent_style === 'auto') {
-						editor.setSoftTabs(atom.config.get('editor.softTabs', configOptions));
-					} else {
+					if (settings.indent_style !== 'auto') {
 						editor.setSoftTabs(settings.indent_style === 'space');
 					}
 
-					if (settings.tab_width === 'auto') {
-						editor.setTabLength(atom.config.get('editor.tabLength', configOptions));
-					} else {
+					if (settings.tab_width !== 'auto') {
 						editor.setTabLength(settings.tab_width);
 					}
 
-					if (settings.charset === 'auto') {
-						buffer.setEncoding(atom.config.get('core.fileEncoding', configOptions));
-					} else {
+					if (settings.charset !== 'auto') {
 						buffer.setEncoding(settings.charset);
 					}
 
 					// max_line_length-settings
 					const editorParams = {};
-					if (settings.max_line_length === 'auto') {
-						editorParams.softWrapped = atom.config.get('editor.softWrap', configOptions);
-						editorParams.softWrapAtPreferredLineLength =
-							atom.config.get('editor.softWrapAtPreferredLineLength', configOptions);
-						editorParams.preferredLineLength =
-							atom.config.get('editor.preferredLineLength', configOptions);
-					} else {
+					if (settings.max_line_length !== 'auto') {
 						editorParams.softWrapped = true;
 						editorParams.softWrapAtPreferredLineLength = true;
 						editorParams.preferredLineLength = settings.max_line_length;
